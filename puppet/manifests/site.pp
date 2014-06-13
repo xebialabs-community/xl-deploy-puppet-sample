@@ -27,6 +27,10 @@ node 'tomcat3' {
   include xld-app
 }
 
+node 'jbossas1' {
+  include xld-jbossas
+}
+
 node 'db' {
   include xld-mysql
 }

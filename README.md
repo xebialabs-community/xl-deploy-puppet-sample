@@ -20,8 +20,6 @@ This should clone repositories and provide the necessary shared puppet modules t
     git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git puppet/modules/mysql
     git submodule add git@github.com:camptocamp/puppet-tomcat.git puppet/modules/tomcat
     git submodule add git@github.com:camptocamp/puppet-archive.git puppet/modules/archive
-    git submodule add git@github.com:erwbgy/puppet-jboss.git
-puppet/modules/jboss
 
     git submodule add git@github.com:bmoussaud/community-plugins.git  xl-modules --branch puppet39
 
