@@ -21,3 +21,6 @@
   url = git@github.com:bmoussaud/community-plugins.git
   branch = puppet39
 
+[submodule "puppet/modules/jboss"]
+	path = puppet/modules/jboss
+	url = git@github.com:erwbgy/puppet-jboss.git

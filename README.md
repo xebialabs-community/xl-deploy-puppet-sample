@@ -15,11 +15,14 @@ This should clone repositories and provide the necessary shared puppet modules t
 
 # Submodules #
 
-    git submodule add git@github.com:puppetlabs/puppetlabs-java.git modules/java
-    git submodule add git@github.com:puppetlabs/puppetlabs-stdlib.git modules/stdlib
-    git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git modules/mysql
-    git submodule add git@github.com:camptocamp/puppet-tomcat.git modules/tomcat
-    git submodule add git@github.com:camptocamp/puppet-archive.git modules/archive
+    git submodule add git@github.com:puppetlabs/puppetlabs-java.git puppet/modules/java
+    git submodule add git@github.com:puppetlabs/puppetlabs-stdlib.git puppet/modules/stdlib
+    git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git puppet/modules/mysql
+    git submodule add git@github.com:camptocamp/puppet-tomcat.git puppet/modules/tomcat
+    git submodule add git@github.com:camptocamp/puppet-archive.git puppet/modules/archive
+    git submodule add git@github.com:erwbgy/puppet-jboss.git
+puppet/modules/jboss
+
     git submodule add git@github.com:bmoussaud/community-plugins.git  xl-modules --branch puppet39
 
 

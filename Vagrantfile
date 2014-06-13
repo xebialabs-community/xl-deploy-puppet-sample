@@ -4,6 +4,7 @@ nodes = [
   { :hostname => 'tomcat1', :ip => '10.0.0.101', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024},
   { :hostname => 'tomcat2', :ip => '10.0.0.102', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
   { :hostname => 'tomcat3', :ip => '10.0.0.103', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
+  { :hostname => 'jbossas1', :ip => '10.0.0.201', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
   { :hostname => 'db', :ip => '10.0.0.200', :box => 'ubuntu-1310-x64-virtualbox-puppet'  }
 ]
 
