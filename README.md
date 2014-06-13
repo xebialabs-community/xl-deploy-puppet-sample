@@ -12,3 +12,16 @@ After cloning this repository, initialize and update the git submodules for it:
 
 This should clone repositores and provide the necessary shared puppet modules that are needed to run any vagrant projects.
 
+
+
+# Submodules #
+
+    git submodule add git@github.com:puppetlabs/puppetlabs-java.git modules/java
+    git submodule add git@github.com:puppetlabs/puppetlabs-stdlib.git modules/stdlib
+    git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git modules/mysql
+    git submodule add git@github.com:camptocamp/puppet-tomcat.git modules/tomcat
+    git submodule add git@github.com:camptocamp/puppet-archive.git modules/archive
+    
+
+
+
