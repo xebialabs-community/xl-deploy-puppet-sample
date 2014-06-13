@@ -18,4 +18,6 @@
 	url = git@github.com:theforeman/puppet-concat.git
 [submodule "xl-modules"]
 	path = xl-modules
-	url = git@github.com:bmoussaud/community-plugins.git
+  url = git@github.com:bmoussaud/community-plugins.git
+  branch = puppet39
+
