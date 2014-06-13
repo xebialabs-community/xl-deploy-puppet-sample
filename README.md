@@ -10,8 +10,7 @@ After cloning this repository, initialize and update the git submodules for it:
     git submodule init
     git submodule update
 
-This should clone repositores and provide the necessary shared puppet modules that are needed to run any vagrant projects.
-
+This should clone repositories and provide the necessary shared puppet modules that are needed to run any vagrant projects.
 
 
 # Submodules #
@@ -21,7 +20,9 @@ This should clone repositores and provide the necessary shared puppet modules th
     git submodule add git@github.com:puppetlabs/puppetlabs-mysql.git modules/mysql
     git submodule add git@github.com:camptocamp/puppet-tomcat.git modules/tomcat
     git submodule add git@github.com:camptocamp/puppet-archive.git modules/archive
-    
+    git submodule add git@github.com:bmoussaud/community-plugins.git  xl-modules --branch puppet39
+
+
 
 
 
