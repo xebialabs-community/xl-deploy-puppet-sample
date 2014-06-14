@@ -1,12 +1,11 @@
 ---
-jboss::as:
-  jbossas1:
-    basedir:      '/apps/jbossas1'
-    group:        'jboss'
-    java_home:    '/usr/java/jdk1.7.0_09'
-    java_opts:    "-Xms1536m -Xmx1536m -XX:MaxPermSize=512m -Djboss.bind.address.management=%{ipaddress_eth0} -Djava.net.preferIPv4Stack=true"
-    logdir:       '/apps/jbossas1/logs'
-    version:      '7.1.1.Final'
+jbossas::main_version: 5
+jbossas::sub_version: 1.1.0.GA
+jbossas::jbossdir: /opt
+jbossas::configuration: web
+jbossas::bind_address: 0.0.0.0
+java::package: openjdk-6-jdk
+java::java_alternative: update-java-alternatives --set java-1.6.0-openjdk-amd64
 
 
 

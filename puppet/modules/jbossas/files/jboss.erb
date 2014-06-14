@@ -1,0 +1,21 @@
+#!/bin/bash
+# Mange JBoss Service
+#
+# description: manage an jboss java process
+
+case $1 in
+    start)
+        nohup /opt/deployit-server/bin/server.sh > /tmp/xld-nohup.out 2>&1 &
+    ;;
+    stop)
+        pid=`ps aux | grep java | grep engine | awk '{print $2}'`
+kill -9 $pid
+    ;;
+    restart)
+        pid=`ps aux | grep java | grep engine | awk '{print $2}'`
+kill -9 $pid
+        nohup /opt/deployit-server/bin/serverer.sh > /tmp/xld-nohup.out 2>&1 &
+    ;;
+esac
+exit 0
+

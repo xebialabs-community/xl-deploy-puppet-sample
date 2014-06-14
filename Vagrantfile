@@ -15,6 +15,7 @@ Vagrant::Config.run do |config|
       node_config.vm.box = node[:box]
       node_config.vm.host_name = node[:hostname] + '.' + domain
       node_config.vm.network :hostonly, node[:ip]
+      node_config.vm.share_folder("catalog", "/catalog", ENV["CATALOG"])
 
       memory = node[:ram] ? node[:ram] : 256;
       node_config.vm "virtualbox" do |v|

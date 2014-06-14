@@ -4,30 +4,14 @@
 #
 
 
-class xld-tomcat {
+class xld-jbossas {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  class {'java':
-    distribution 	  => 'jdk',
-    version       	=> '6',
-  }
+  include java
+  include jbossas
 
-  #sources_src => 'http://10.0.2.2:3000/dist'
-  class { 'jboss':
-    version     => 7,
-    sources     => true,
-  }
-
-
-  tomcat::instance {'appserver':
-    ensure      => present,
-    server_port => hiera('tomcat.port.mgt'),
-    http_port   => hiera('tomcat.port.http'),
-    ajp_port    => hiera('tomcat.port.ajp'),
-  }
-
-  deployit { "xld-tomcat":
+  deployit { "xld-jbossas":
     username             => "admin",
     password             => "admin",
     url                  => "http://10.0.2.2:4516",
