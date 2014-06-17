@@ -1,2 +1,3 @@
-<%=@jbossdir%>/jboss-<%=@main_version%>-<%=@sub_version%>/bin/run.sh -c <%=@configuration%> -b <%=bind_address%> <%=opts%> > /tmp/jbossas-run-<%=@configuration%>.<%=bind_address%>.log
+cd <%=@jbossdir%>/jboss-<%=@main_version%>.<%=@sub_version%>
+<%=@jbossdir%>/jboss-<%=@main_version%>.<%=@sub_version%>/bin/run.sh -c <%=@configuration%> -b <%=bind_address%> <%=opts%> > /tmp/jbossas-run-<%=@configuration%>.<%=bind_address%>.log
 

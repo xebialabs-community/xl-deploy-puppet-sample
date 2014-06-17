@@ -38,10 +38,10 @@ class jbossas (
     user    => "jbossas",
     group   => "jbossas",
     require => [File[$jbossdir]],
-    creates => "${jbossdir}/jboss-${main_version}-${sub_version}"
+    creates => "${jbossdir}/jboss-${main_version}.${sub_version}"
   }
 
-  file { "${jbossdir}/jboss-${main_version}-${sub_version}/common/lib/mysql-connector-java-5.1.22-bin.jar":
+  file { "${jbossdir}/jboss-${main_version}.${sub_version}/common/lib/mysql-connector-java-5.1.22-bin.jar":
     source  => "/catalog/Oracle/mysql-connector-java-5.1.22-bin.jar",
     ensure  => present,
     owner   => "jbossas",
@@ -54,7 +54,7 @@ class jbossas (
   }
 
   file { "generate start-jboss.sh":
-    path    => "${jbossdir}/jboss-${main_version}-${sub_version}/bin/start-jboss.sh",
+    path    => "${jbossdir}/jboss-${main_version}.${sub_version}/bin/start-jboss-${configuration}.sh",
     owner   => "jbossas",
     group   => "jbossas",
     content => template('jbossas/start-jboss.erb'),
@@ -62,11 +62,21 @@ class jbossas (
     require => Exec["extract-jboss-server"],
   }
 
+  file { "generate stop-jboss.sh":
+    path    => "${jbossdir}/jboss-${main_version}.${sub_version}/bin/stop-jboss-${configuration}.sh",
+    owner   => "jbossas",
+    group   => "jbossas",
+    content => template('jbossas/stop-jboss.erb'),
+    mode    => "0777",
+    require => Exec["extract-jboss-server"],
+  }
+
+
   exec { 'chown':
-    command => "/bin/chown -R jbossas:jbossas ${jbossdir}/jboss-${main_version}-${sub_version}",
+    command => "/bin/chown -R jbossas:jbossas ${jbossdir}/jboss-${main_version}.${sub_version}",
     path    => '/bin',
     user    => 'root',
-    require => File["generate start-jboss.sh"],
+    require => [File["generate start-jboss.sh"],File["generate stop-jboss.sh"]],
   }
 }
 

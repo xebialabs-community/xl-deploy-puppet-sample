@@ -1,8 +1,9 @@
 ---
+jbossas::home: /opt/jboss-5.1.0.GA
 jbossas::main_version: 5
-jbossas::sub_version: 1.1.0.GA
+jbossas::sub_version: 1.0.GA
 jbossas::jbossdir: /opt
-jbossas::configuration: web
+jbossas::configuration: standard
 jbossas::bind_address: 0.0.0.0
 java::package: openjdk-6-jdk
 java::java_alternative: update-java-alternatives --set java-1.6.0-openjdk-amd64

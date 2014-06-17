@@ -23,6 +23,10 @@ This should clone repositories and provide the necessary shared puppet modules t
 
     git submodule add git@github.com:bmoussaud/community-plugins.git  xl-modules --branch puppet39
 
+# Vagrant #
+
+    vagrant plugin install vagrant-cachier
+
 
 
 

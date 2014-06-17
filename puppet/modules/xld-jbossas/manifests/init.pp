@@ -27,7 +27,7 @@ class xld-jbossas {
     require    => Deployit_directory["Infrastructure/$environment"]
   }
 
-  deployit_container { "Infrastructure/$environment/$hostname":
+  deployit_container { "Infrastructure/$environment/$fqdn":
     type     	  => "overthere.SshHost",
     properties	=> {
       os      => UNIX,
@@ -40,15 +40,16 @@ class xld-jbossas {
     server   	 => Deployit["xld-jbossas"],
     require    => Deployit_directory["Infrastructure/$environment"]
   }
-  deployit_container { "Infrastructure/$environment/$hostname/jboss-$hostname":
+
+  deployit_container { "Infrastructure/$environment/$fqdn/$hostname":
     type     	=> 'jbossas.ServerV5',
     properties	=> {
-      home 			  => "/opt",
+      home 			  => hiera('jbossas::home'),
       serverName 	=> hiera('jbossas::configuration'),
     },
     server   	   => Deployit["xld-jbossas"],
-    require 	   => Deployit_container["Infrastructure/$environment/$hostname"],
-    environments => "Environments/$environment/Demo",
+    require 	   => Deployit_container["Infrastructure/$environment/$fqdn"],
+    environments => "Environments/$environment/App-$environment",
   }
 
 }

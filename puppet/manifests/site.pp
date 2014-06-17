@@ -27,11 +27,29 @@ node 'tomcat3' {
   include xld-app
 }
 
-node 'jbossas1' {
+node 'jbossqa' {
+  $environment = "QA"
   include xld-jbossas
 }
 
-node 'db' {
+node 'jbossprod1','jbossprod2' {
+  $environment = "Production"
+  include xld-jbossas
+}
+
+node 'dbqa' {
+  $environment = "QA"
   include xld-mysql
+}
+
+node 'dbprod' {
+  $environment = "Production"
+  include xld-mysql
+}
+
+
+node 'base' {
+  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+  include java
 }
 
