@@ -1,0 +1,12 @@
+---
+xld-mysql::dbname: myapp-qa
+xld-mysql::dbuser: scott
+xld-mysql::dbpassword: tiger
+
+mysql::bind_address: 0.0.0.0
+
+
+
+
+
+

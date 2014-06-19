@@ -52,4 +52,14 @@ class xld-jbossas {
     environments => "Environments/$environment/App-$environment",
   }
 
+  deployit_dictionary {"Environments/$environment/App-$environment.dict":
+    server   	           => Deployit["xld-jbossas"],
+    environments         => "Environments/$environment/App-$environment",
+    require 	           => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
+    entries              => {
+      'TITLE'      => "Bonjour",
+    },
+  }
+
+
 }

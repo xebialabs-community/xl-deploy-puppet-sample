@@ -1,22 +1,10 @@
-# create a new run stage to ensure certain modules are included first
-stage { 'pre':
-  before => Stage['main']
-}
-
 # add the baseconfig module to the new 'pre' run stage
-class { 'baseconfig':
-  stage => 'pre'
-}
-
 # set defaults for file ownership/permissions
 File {
   owner => 'root',
   group => 'root',
   mode  => '0644',
 }
-
-# all boxes get the base config
-include baseconfig
 
 node 'tomcat1','tomcat2' {
   include xld-tomcat
@@ -48,8 +36,29 @@ node 'dbprod' {
 }
 
 
-node 'base' {
-  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
-  include java
+node 'base-java' {
+class { 'baseconfig':
+  stage => 'pre'
 }
+
+  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+  include baseconfig
+  include java
+  package {"linux-headers-generic":}
+  package {"build-essential":}
+  package {"dkms":}
+}
+
+node 'base-mysql' {
+  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+  class { '::mysql::server':
+    root_password   => 'deployitpassword',
+  }
+  package {"mysql-client": }
+  #package {"linux-headers-generic":}
+  #package {"build-essential":}
+  #package {"dkms":}
+}
+
+
 

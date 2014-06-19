@@ -71,6 +71,13 @@ class jbossas (
     require => Exec["extract-jboss-server"],
   }
 
+  file { "${jbossdir}/jboss-${main_version}.${sub_version}/server/${configuration}/conf/bootstrap/profile.xml":
+    source  => "puppet:///modules/jbossas/profile.xml",
+    ensure  => present,
+    owner   => "jbossas",
+    group   => "jbossas",
+    require => Exec['extract-jboss-server'],
+  }
 
   exec { 'chown':
     command => "/bin/chown -R jbossas:jbossas ${jbossdir}/jboss-${main_version}.${sub_version}",

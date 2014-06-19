@@ -1,0 +1,12 @@
+---
+xld-mysql::dbname: myapp-prod
+xld-mysql::dbuser: tiger
+xld-mysql::dbpassword: woods
+
+mysql::bind_address: 0.0.0.0
+
+
+
+
+
+
