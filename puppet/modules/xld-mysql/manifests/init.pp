@@ -29,7 +29,7 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
   deployit_directory { "Infrastructure/$environment":
     server   	  => Deployit["xld-mysql"],
   }
-  deployit_directory { 'Environments/$environment':
+  deployit_directory { "Environments/$environment":
     server   	  => Deployit["xld-mysql"],
     require    => Deployit_directory["Infrastructure/$environment"]
   }

@@ -52,13 +52,15 @@ class xld-jbossas {
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary {"Environments/$environment/App-$environment.dict":
-    server   	           => Deployit["xld-jbossas"],
-    environments         => "Environments/$environment/App-$environment",
-    require 	           => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
-    entries              => {
-      'TITLE'      => "Bonjour",
+  deployit_dictionary {"Environments/$environment/App-$environment-$hostname.dict":
+    server   	   => Deployit["xld-jbossas"],
+    environments => "Environments/$environment/App-$environment",
+    require 	   => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
+    entries      => {
+      'TITLE'    => "Hello from {{IP}}",
+      'IP'       => $ipaddress_eth1,
     },
+    restrict_to_containers => ["Infrastructure/$environment/$fqdn/$hostname"],
   }
 
 
