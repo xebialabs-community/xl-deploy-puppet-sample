@@ -19,35 +19,6 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
     grant    => ['all'],
   }
 
-  deployit { "xld-mysql":
-    username             => "admin",
-    password             => "admin",
-    url                  => "http://10.0.2.2:4516",
-    encrypted_dictionary => "Environments/$environment/PuppetModuleDictionary"
-  }
-
-  deployit_directory { "Infrastructure/$environment":
-    server   	  => Deployit["xld-mysql"],
-  }
-  deployit_directory { "Environments/$environment":
-    server   	  => Deployit["xld-mysql"],
-    require    => Deployit_directory["Infrastructure/$environment"]
-  }
-
-  deployit_container { "Infrastructure/$environment/$fqdn":
-    type     	  => "overthere.SshHost",
-    properties	=> {
-      os      => UNIX,
-      address => $ipaddress_eth1,
-      username  => vagrant,
-      password => vagrant,
-      connectionType => INTERACTIVE_SUDO,
-      sudoUsername => root,
-    },
-    server   	 => Deployit["xld-mysql"],
-    require    => Deployit_directory["Infrastructure/$environment"]
-  }
-
   deployit_container { "Infrastructure/$environment/$fqdn/mysql-$dbname":
     type     	=> 'sql.MySqlClient',
     properties  => {
@@ -56,13 +27,13 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
       databaseName  => $dbname,
       mySqlHome     => '/usr',
     },
-    server   	=> Deployit["xld-mysql"],
+    server   	=> Deployit["xld-server"],
     require 	=> Deployit_container["Infrastructure/$environment/$fqdn"],
     environments => "Environments/$environment/App-$environment",
   }
 
   deployit_dictionary {"Environments/$environment/App-db-$environment":
-    server   	           => Deployit["xld-mysql"],
+    server   	           => Deployit["xld-server"],
     environments         => "Environments/$environment/App-$environment",
     require 	           => Deployit_container["Infrastructure/$environment/$fqdn/mysql-$dbname"],
     entries              => {

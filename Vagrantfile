@@ -3,14 +3,17 @@
 domain = 'xebialabs.demo'
 
 nodes = [
-  { :hostname => 'tomcat1', :ip => '10.0.0.101', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024},
-  { :hostname => 'tomcat2', :ip => '10.0.0.102', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
-  { :hostname => 'tomcat3', :ip => '10.0.0.103', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
+  { :hostname => 'jbossdev', :ip => '10.0.0.190', :box => 'ubuntu-1304-puppet-java', :ram => 1024 },
   { :hostname => 'jbossqa', :ip => '10.0.0.201', :box => 'ubuntu-1304-puppet-java', :ram => 1024 },
   { :hostname => 'jbossprod1', :ip => '10.0.0.202', :box => 'ubuntu-1304-puppet-java', :ram => 1024 },
   { :hostname => 'jbossprod2', :ip => '10.0.0.203', :box => 'ubuntu-1304-puppet-java', :ram => 1024 },
   { :hostname => 'dbqa', :ip => '10.0.0.204', :box => 'ubuntu-1304-puppet-mysql', :ram => 512 },
   { :hostname => 'dbprod', :ip => '10.0.0.205', :box => 'ubuntu-1304-puppet-mysql', :ram => 512 },
+
+  { :hostname => 'tomcat1', :ip => '10.0.0.101', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024},
+  { :hostname => 'tomcat2', :ip => '10.0.0.102', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
+  { :hostname => 'tomcat3', :ip => '10.0.0.103', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024 },
+
   { :hostname => 'base-java', :ip => '10.0.0.10', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024},
   { :hostname => 'base-mysql', :ip => '10.0.0.11', :box => 'ubuntu-1310-x64-virtualbox-puppet', :ram => 1024},
 ]
@@ -48,6 +51,6 @@ Vagrant::Config.run do |config|
     puppet.manifest_file = 'site.pp'
     puppet.module_path = ["./puppet/modules", "puppet/xl-modules/tool-deployit-plugins"]
 
-    #puppet.options = "--verbose --debug "
+    puppet.options = "--verbose --debug --trace"
   end
 end

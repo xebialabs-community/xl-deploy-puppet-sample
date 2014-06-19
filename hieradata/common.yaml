@@ -6,4 +6,9 @@ tomcat::params::version: 7
 tomcat.port.ajp: 8009
 tomcat.port.mgt: 8005
 
+xld-base::url: http://10.0.2.2:4516
+xld-base::username: admin
+xld-base::password: admin
+
+
 
