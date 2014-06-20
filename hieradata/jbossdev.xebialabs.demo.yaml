@@ -12,6 +12,7 @@ xld-mysql::dbuser: dev
 xld-mysql::dbpassword: dev
 
 mysql::bind_address: 0.0.0.0
+config::loglevel: debug
 
 
 

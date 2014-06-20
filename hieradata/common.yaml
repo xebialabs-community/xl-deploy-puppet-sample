@@ -9,6 +9,11 @@ tomcat.port.mgt: 8005
 xld-base::url: http://10.0.2.2:4516
 xld-base::username: admin
 xld-base::password: admin
+xld-base::sudo_username: jbossas
+
+config::loglevel: error
+config::logfilepath: /opt/log/application.log
+
 
 
 

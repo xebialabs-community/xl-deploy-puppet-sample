@@ -16,21 +16,25 @@ node 'jbossdev' {
 
 node 'jbossqa' {
   $environment = "QA"
+  include xld-base
   include xld-jbossas
 }
 
 node 'jbossprod1','jbossprod2' {
   $environment = "Production"
+  include xld-base
   include xld-jbossas
 }
 
 node 'dbqa' {
   $environment = "QA"
+  include xld-base
   include xld-mysql
 }
 
 node 'dbprod' {
   $environment = "Production"
+  include xld-base
   include xld-mysql
 }
 

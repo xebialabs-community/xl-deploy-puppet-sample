@@ -24,12 +24,14 @@ class xld-jbossas {
   }
 
   deployit_dictionary {"Environments/$environment/App-$environment-$hostname.dict":
-    server   	   => Deployit["xld-server"],
-    environments => "Environments/$environment/App-$environment",
-    require 	   => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
-    entries      => {
-      'TITLE'    => "Hello from {{IP}}",
-      'IP'       => $ipaddress_eth1,
+    server   	        => Deployit["xld-server"],
+    environments      => "Environments/$environment/App-$environment",
+    require 	         => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
+    entries           => {
+      'TITLE'         => "Hello from {{IP}}",
+      'IP'            => $ipaddress_eth1,
+      'log.level'     => hiera('config::loglevel'),
+      'log.file.path' => hiera('config::logfilepath'),
     },
     restrict_to_containers => ["Infrastructure/$environment/$fqdn/$hostname"],
   }

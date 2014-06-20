@@ -5,6 +5,8 @@ xld-mysql::dbpassword: tiger
 
 mysql::bind_address: 0.0.0.0
 
+xld-base::sudo_username: root
+
 
 
 

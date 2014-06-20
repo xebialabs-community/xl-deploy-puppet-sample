@@ -4,7 +4,7 @@
 #
 
 
-class xld-base ( $url,$username,$password)  {
+class xld-base ( $url,$username,$password,$sudo_username)  {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
@@ -32,7 +32,7 @@ class xld-base ( $url,$username,$password)  {
       username  => vagrant,
       password => vagrant,
       connectionType => INTERACTIVE_SUDO,
-      sudoUsername => jbossas,
+      sudoUsername => $sudo_username
     },
     server   	 => Deployit["xld-server"],
     require    => Deployit_directory["Infrastructure/$environment"]
