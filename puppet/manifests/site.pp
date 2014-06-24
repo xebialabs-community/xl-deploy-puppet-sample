@@ -1,8 +1,10 @@
 node 'tomcat1','tomcat2' {
+  include xld-base
   include xld-tomcat
 }
 
 node 'tomcat3' {
+  include xld-base
   include xld-tomcat
   include xld-app
 }

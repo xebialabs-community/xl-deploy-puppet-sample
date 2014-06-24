@@ -6,13 +6,11 @@
 
 class xld-app {
 
-  include xld-base
-
-  deployed_application { "PetClinic on Demo Env":
+  deployed_application { "PetClinic on Environments/$environment/App-$environment Env":
     version          => "Applications/Java/PetPortal/2.0-68",
-    environment      => "Environments/Puppet/demo",
+    environment      => "Environments/$environment/App-$environment",
     server           => Deployit['xld-server'],
-    require          => Deployit_dictionary["Environments/Puppet/$hostname.dict"],
+    require          => Deployit_dictionary["Environments/$environment/$fqdn.dict"],
     force_deployment => true,
     ensure           => present,
 

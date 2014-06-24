@@ -1,3 +1,6 @@
 ---
 tomcat.port.http: 8084
+xld-base::sudo_username: root
+
+
 

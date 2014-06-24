@@ -8,14 +8,15 @@ class xld-tomcat {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  class {'java':
-    distribution 	  => 'jdk',
-    version       	=> 'latest',
-  }
+  #class {'java':
+  #  distribution 	  => 'jdk',
+  #  version       	=> 'latest',
+  #}
 
   class { 'tomcat':
-    version     => 7,
-    sources     => true,
+    version    => "7",
+    sources    => true,
+    sources_src => "file:/catalog/Tomcat"
   }
 
   tomcat::instance {'appserver':
@@ -25,37 +26,37 @@ class xld-tomcat {
     ajp_port    => hiera('tomcat.port.ajp'),
   }
 
-  deployit_container { "Infrastructure/$environment/$hostname/appserver-$hostname":
-    type     	=> 'tomcat.Server',
-    properties	=> {
-      stopCommand 	=> '/etc/init.d/tomcat-appserver stop',
-      startCommand 	=> 'nohup /etc/init.d/tomcat-appserver start',
-      home 			    => '/srv/tomcat/appserver',
+  deployit_container { "Infrastructure/$environment/$fqdn/appserver-$hostname":
+    type     	      => 'tomcat.Server',
+    properties      => {
+      stopCommand   => '/etc/init.d/tomcat-appserver stop',
+      startCommand  => 'nohup /etc/init.d/tomcat-appserver start',
+      home          => '/srv/tomcat/appserver',
       stopWaitTime	=> 0,
       startWaitTime => 10,
     },
     server   	=> Deployit["xld-server"],
-    require 	=> Deployit_container["Infrastructure/$environment/$hostname"],
-    environments => "Environments/$environment/demo",
+    require 	=> Deployit_container["Infrastructure/$environment/$fqdn"],
+    environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_container { "Infrastructure/$environment/$hostname/appserver-$hostname/$hostname.vh":
+  deployit_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
     type     	=> 'tomcat.VirtualHost',
     properties	=> { },
     server   	=> Deployit["xld-server"],
-    require 	=> Deployit_container["Infrastructure/$environment/$hostname/appserver-$hostname"],
-    environments => "Environments/$environment/demo",
+    require 	=> Deployit_container["Infrastructure/$environment/$fqdn/appserver-$hostname"],
+    environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_container { "Infrastructure/$environment/$hostname/test-runner-$hostname":
+  deployit_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
     type     	=> 'tests2.TestRunner',
     properties	=> { },
     server   	=> Deployit["xld-server"],
-    require 	=> [Deployit_container["Infrastructure/$environment/$hostname"],Deployit_container["Infrastructure/$environment/$hostname/appserver-$hostname/$hostname.vh"]],
-    environments => "Environments/$environment/demo",
+    require 	=> [Deployit_container["Infrastructure/$environment/$fqdn"],Deployit_container["Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh"]],
+    environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary { "Environments/$environment/$hostname.dict":
+  deployit_dictionary { "Environments/$environment/$fqdn.dict":
     entries                                                 => {
       "log.RootLevel"                                       => "ERROR",
       "log.FilePath"                                        => "/tmp/null",
@@ -63,16 +64,16 @@ class xld-tomcat {
       "tests2.ExecutedHttpRequestTest.url"                  => "http://localhost:{{tomcat.port}}/petclinic/index.jsp",
       "tomcat.DataSource.username"                          => "scott",
       "tomcat.DataSource.password"                          => "tiger",
-      "TITLE"                                               => "Demo $environment",
+      "TITLE"                                               => "$environment",
       "tomcat.DataSource.driverClassName"                   => "com.mysql.jdbc.Driver",
       "tomcat.DataSource.url"                               => "jdbc:mysql://localhost/{{tomcat.DataSource.context}}",
       "tomcat.DataSource.context"                           => "petclinic",
       "tests2.ExecutedHttpRequestTest.expectedResponseText" => "Home",
     },
-    restrict_to_containers => ["Infrastructure/$environment/$hostname/appserver-$hostname/$hostname.vh", "Infrastructure/$environment/$hostname/test-runner-$hostname", "Infrastructure/$environment/$hostname/appserver-$hostname"],
-    environments         => "Environments/$environment/demo",
+    restrict_to_containers => ["Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh", "Infrastructure/$environment/$fqdn/test-runner-$hostname", "Infrastructure/$environment/$fqdn/appserver-$hostname"],
+    environments         => "Environments/$environment/App-$environment",
     server   	           => Deployit["xld-server"],
-    require              => Deployit_container["Infrastructure/$environment/$hostname/test-runner-$hostname"]
+    require              => Deployit_container["Infrastructure/$environment/$fqdn/test-runner-$hostname"]
   }
 
 }
