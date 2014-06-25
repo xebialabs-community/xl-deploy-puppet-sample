@@ -5,14 +5,6 @@
 
 
 class xld-tomcat {
-
-  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
-
-  #class {'java':
-  #  distribution 	  => 'jdk',
-  #  version       	=> 'latest',
-  #}
-
   class { 'tomcat':
     version    => "7",
     sources    => true,
