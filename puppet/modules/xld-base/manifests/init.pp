@@ -16,17 +16,16 @@ class xld-base ( $url,$username,$password,$sudo_username)  {
   }
 
   deployit_directory { "Infrastructure/$environment":
-    server   	  => Deployit["xld-server"],
+    server      => Deployit["xld-server"],
   }
 
   deployit_directory { "Environments/$environment":
-    server   	  => Deployit["xld-server"],
-    require    => Deployit_directory["Infrastructure/$environment"]
+    server      => Deployit["xld-server"],
   }
 
   deployit_container { "Infrastructure/$environment/$fqdn":
-    type     	  => "overthere.SshHost",
-    properties	=> {
+    type        => "overthere.SshHost",
+    properties  => {
       os      => UNIX,
       address => $ipaddress_eth1,
       username  => vagrant,
@@ -34,8 +33,7 @@ class xld-base ( $url,$username,$password,$sudo_username)  {
       connectionType => INTERACTIVE_SUDO,
       sudoUsername => $sudo_username
     },
-    server   	 => Deployit["xld-server"],
-    require    => Deployit_directory["Infrastructure/$environment"]
+    server      => Deployit["xld-server"],
   }
 
 

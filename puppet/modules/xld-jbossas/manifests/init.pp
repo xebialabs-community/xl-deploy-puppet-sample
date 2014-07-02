@@ -13,21 +13,19 @@ class xld-jbossas {
 
 
   deployit_container { "Infrastructure/$environment/$fqdn/$hostname":
-    type     	=> 'jbossas.ServerV5',
-    properties	=> {
-      home 			  => hiera('jbossas::home'),
-      serverName 	=> hiera('jbossas::configuration'),
+    type         => 'jbossas.ServerV5',
+    properties   => {
+      home        => hiera('jbossas::home'),
+      serverName  => hiera('jbossas::configuration'),
     },
-    server   	   => Deployit["xld-server"],
-    require 	   => Deployit_container["Infrastructure/$environment/$fqdn"],
+    server       => Deployit["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary {"Environments/$environment/App-$environment-$hostname.dict":
-    server   	        => Deployit["xld-server"],
-    environments      => "Environments/$environment/App-$environment",
-    require 	         => Deployit_container["Infrastructure/$environment/$fqdn/$hostname"],
-    entries           => {
+  deployit_dictionary { "Environments/$environment/App-$environment-$hostname.dict":
+    server                 => Deployit["xld-server"],
+    environments           => "Environments/$environment/App-$environment",
+    entries                => {
       'TITLE'         => "Hello from {{IP}}",
       'IP'            => $ipaddress_eth1,
       'log.level'     => hiera('config::loglevel'),
