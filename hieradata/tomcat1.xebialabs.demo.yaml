@@ -1,6 +1,7 @@
 ---
 tomcat.port.http: 8081
 xld-base::sudo_username: root
+xld-tomcat::deployment_group: 2
 
 
 

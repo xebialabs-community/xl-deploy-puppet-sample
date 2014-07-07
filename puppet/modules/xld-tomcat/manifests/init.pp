@@ -4,11 +4,14 @@
 #
 
 
-class xld-tomcat {
+class xld-tomcat ( $deployment_group)  {
+
+  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+
   class { 'tomcat':
-    version     => "7",
+    version     => '7',
     sources     => true,
-    sources_src => "file:/catalog/Tomcat"
+    sources_src => 'file:/catalog/Tomcat'
   }
 
   tomcat::instance { 'appserver':
@@ -26,6 +29,7 @@ class xld-tomcat {
       home          => '/srv/tomcat/appserver',
       stopWaitTime  => 0,
       startWaitTime => 10,
+      deploymentGroup => $deployment_group,
     },
     server          => Deployit["xld-server"],
     environments    => "Environments/$environment/App-$environment",
@@ -33,14 +37,18 @@ class xld-tomcat {
 
   deployit_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
     type         => 'tomcat.VirtualHost',
-    properties   => { },
+    properties   => {
+      deploymentGroup => $deployment_group,
+    },
     server       => Deployit["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
   deployit_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
     type         => 'tests2.TestRunner',
-    properties   => { },
+    properties   => {
+      deploymentGroup => $deployment_group,
+    },
     server       => Deployit["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }

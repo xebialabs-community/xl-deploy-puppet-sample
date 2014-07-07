@@ -1,9 +1,11 @@
 node 'tomcat1','tomcat2' {
+  $environment = "Production"
   include xld-base
   include xld-tomcat
 }
 
 node 'tomcat3' {
+  $environment = "Production"
   include xld-base
   include xld-tomcat
   include xld-app
@@ -42,30 +44,29 @@ node 'dbprod' {
 
 
 node 'base-java' {
-  # add the baseconfig module to the new 'pre' run stage
-  # set defaults for file ownership/permissions
-  File {
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
+
+  exec { "apt-update":
+    command => "/usr/bin/apt-get update"
   }
 
-  class { 'baseconfig':
-    stage => 'pre'
-  }
+  Exec["apt-update"] -> Package <| |>
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
-  include baseconfig
+
+  package { ['liblog4j1.2-java', 'libcommons-logging-java']:
+    ensure => present,
+  }
+  package { ['linux-headers-generic','build-essential','dkms']:
+    ensure => present,
+  }
+
   include java
-  package {"linux-headers-generic":}
-  package {"build-essential":}
-  package {"dkms":}
 }
 
 node 'base-mysql' {
 
-  # add the baseconfig module to the new 'pre' run stage
-  # set defaults for file ownership/permissions
+# add the baseconfig module to the new 'pre' run stage
+# set defaults for file ownership/permissions
   File {
     owner => 'root',
     group => 'root',
@@ -76,11 +77,11 @@ node 'base-mysql' {
   class { '::mysql::server':
     root_password   => 'deployitpassword',
   }
-  package {"mysql-client": }
-  #package {"linux-headers-generic":}
-  #package {"build-essential":}
-  #package {"dkms":}
-  }
+  package { "mysql-client": }
+#package {"linux-headers-generic":}
+#package {"build-essential":}
+#package {"dkms":}
+}
 
 
 

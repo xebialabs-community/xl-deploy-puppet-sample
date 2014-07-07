@@ -4,7 +4,7 @@
 #
 
 
-class xld-base ( $url,$username,$password,$sudo_username)  {
+class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_path)  {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
@@ -31,7 +31,8 @@ class xld-base ( $url,$username,$password,$sudo_username)  {
       username  => vagrant,
       password => vagrant,
       connectionType => INTERACTIVE_SUDO,
-      sudoUsername => $sudo_username
+      sudoUsername => $sudo_username,
+      stagingDirectoryPath => $staging_directory_path
     },
     server      => Deployit["xld-server"],
   }

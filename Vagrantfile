@@ -52,6 +52,6 @@ Vagrant::Config.run do |config|
     puppet.manifest_file = 'site.pp'
     puppet.module_path = ["./puppet/modules"]
 
-    #puppet.options = "--verbose --debug "
+    #puppet.options = "--verbose --debug --trace"
   end
 end
