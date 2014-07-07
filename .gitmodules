@@ -16,8 +16,6 @@
 [submodule "modules/concat"]
 	path = puppet/modules/concat
 	url = git@github.com:theforeman/puppet-concat.git
-[submodule "xl-modules"]
-	path = puppet/xl-modules
-  url = git@github.com:bmoussaud/community-plugins.git
-  branch = puppet39
-
+[submodule "puppet/modules/xl-deploy"]
+	path = puppet/modules/xl-deploy
+	url = git@github.com:xebialabs/puppet-xl-deploy-module.git

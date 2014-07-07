@@ -50,7 +50,7 @@ Vagrant::Config.run do |config|
     puppet.manifests_path = 'puppet/manifests'
     puppet.module_path = 'puppet/modules'
     puppet.manifest_file = 'site.pp'
-    puppet.module_path = ["./puppet/modules", "puppet/xl-modules/tool-deployit-plugins"]
+    puppet.module_path = ["./puppet/modules"]
 
     #puppet.options = "--verbose --debug "
   end
