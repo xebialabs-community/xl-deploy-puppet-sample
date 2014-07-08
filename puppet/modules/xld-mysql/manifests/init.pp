@@ -22,10 +22,11 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
   deployit_container { "Infrastructure/$environment/$fqdn/mysql-$dbname":
     type         => 'sql.MySqlClient',
     properties   => {
-      username    => $dbuser,
-      password    => $dbpassword,
-      databaseName  => $dbname,
-      mySqlHome     => '/usr',
+      username        => $dbuser,
+      password        => $dbpassword,
+      databaseName    => $dbname,
+      mySqlHome       => '/usr',
+      deploymentGroup => 1,
     },
     server       => Deployit["xld-server"],
     environments => "Environments/$environment/App-$environment",
