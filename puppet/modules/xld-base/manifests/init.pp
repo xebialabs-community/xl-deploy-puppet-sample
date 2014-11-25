@@ -8,22 +8,22 @@ class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_pat
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  deployit { "xld-server":
+  xldeploy { "xld-server":
     username             => $username,
     password             => $password,
     url                  => $url,
     encrypted_dictionary => "Environments/$environment/PuppetModuleDictionary"
   }
 
-  deployit_directory { "Infrastructure/$environment":
-    server      => Deployit["xld-server"],
+  Xldeploy_directory { "Infrastructure/$environment":
+    server      => Xldeploy["xld-server"],
   }
 
-  deployit_directory { "Environments/$environment":
-    server      => Deployit["xld-server"],
+  Xldeploy_directory { "Environments/$environment":
+    server      => Xldeploy["xld-server"],
   }
 
-  deployit_container { "Infrastructure/$environment/$fqdn":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn":
     type        => "overthere.SshHost",
     properties  => {
       os      => UNIX,
@@ -34,7 +34,7 @@ class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_pat
       sudoUsername => $sudo_username,
       stagingDirectoryPath => $staging_directory_path
     },
-    server      => Deployit["xld-server"],
+    server      => Xldeploy["xld-server"],
   }
 
 

@@ -19,7 +19,7 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
     grant    => ['all'],
   }
 
-  deployit_container { "Infrastructure/$environment/$fqdn/mysql-$dbname":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn/mysql-$dbname":
     type         => 'sql.MySqlClient',
     properties   => {
       username        => $dbuser,
@@ -28,12 +28,12 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
       mySqlHome       => '/usr',
       deploymentGroup => 1,
     },
-    server       => Deployit["xld-server"],
+    server       => Xldeploy["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary { "Environments/$environment/App-db-$environment":
-    server               => Deployit["xld-server"],
+  Xldeploy_dictionary { "Environments/$environment/App-db-$environment":
+    server               => Xldeploy["xld-server"],
     environments         => "Environments/$environment/App-$environment",
     entries              => {
       'db.username'      => $dbuser,

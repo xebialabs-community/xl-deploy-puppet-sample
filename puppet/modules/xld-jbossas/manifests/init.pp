@@ -12,18 +12,18 @@ class xld-jbossas {
   include jbossas
 
 
-  deployit_container { "Infrastructure/$environment/$fqdn/$hostname":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn/$hostname":
     type         => 'jbossas.ServerV5',
     properties   => {
       home        => hiera('jbossas::home'),
       serverName  => hiera('jbossas::configuration'),
     },
-    server       => Deployit["xld-server"],
+    server       => Xldeploy["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary { "Environments/$environment/App-$environment-$hostname.dict":
-    server                 => Deployit["xld-server"],
+  Xldeploy_dictionary { "Environments/$environment/App-$environment-$hostname.dict":
+    server                 => Xldeploy["xld-server"],
     environments           => "Environments/$environment/App-$environment",
     entries                => {
       'TITLE'         => "Hello from {{IP}}",

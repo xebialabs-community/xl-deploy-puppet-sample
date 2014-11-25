@@ -21,7 +21,7 @@ class xld-tomcat ( $deployment_group)  {
     ajp_port    => hiera('tomcat.port.ajp'),
   }
 
-  deployit_container { "Infrastructure/$environment/$fqdn/appserver-$hostname":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname":
     type            => 'tomcat.Server',
     properties      => {
       stopCommand   => '/etc/init.d/tomcat-appserver stop',
@@ -31,29 +31,29 @@ class xld-tomcat ( $deployment_group)  {
       startWaitTime => 10,
       deploymentGroup => $deployment_group,
     },
-    server          => Deployit["xld-server"],
+    server          => Xldeploy["xld-server"],
     environments    => "Environments/$environment/App-$environment",
   }
 
-  deployit_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
     type         => 'tomcat.VirtualHost',
     properties   => {
       deploymentGroup => $deployment_group,
     },
-    server       => Deployit["xld-server"],
+    server       => Xldeploy["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
+  Xldeploy_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
     type         => 'tests2.TestRunner',
     properties   => {
       deploymentGroup => $deployment_group,
     },
-    server       => Deployit["xld-server"],
+    server       => Xldeploy["xld-server"],
     environments => "Environments/$environment/App-$environment",
   }
 
-  deployit_dictionary { "Environments/$environment/$fqdn.dict":
+  Xldeploy_dictionary { "Environments/$environment/$fqdn.dict":
     entries                                                 => {
       "log.RootLevel"                                       => "ERROR",
       "log.FilePath"                                        => "/tmp/null",
@@ -69,7 +69,7 @@ class xld-tomcat ( $deployment_group)  {
     },
     restrict_to_containers                                  => ["Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh", "Infrastructure/$environment/$fqdn/test-runner-$hostname", "Infrastructure/$environment/$fqdn/appserver-$hostname"],
     environments                                            => "Environments/$environment/App-$environment",
-    server                                                  => Deployit["xld-server"],
+    server                                                  => Xldeploy["xld-server"],
   }
 
 }
