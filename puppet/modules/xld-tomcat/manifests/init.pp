@@ -21,7 +21,7 @@ class xld-tomcat ( $deployment_group)  {
     ajp_port    => hiera('tomcat.port.ajp'),
   }
 
-  Xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname":
+  xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname":
     type            => 'tomcat.Server',
     properties      => {
       stopCommand   => '/etc/init.d/tomcat-appserver stop',
@@ -35,7 +35,7 @@ class xld-tomcat ( $deployment_group)  {
     environments    => "Environments/$environment/App-$environment",
   }
 
-  Xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
+  xldeploy_container { "Infrastructure/$environment/$fqdn/appserver-$hostname/$hostname.vh":
     type         => 'tomcat.VirtualHost',
     properties   => {
       deploymentGroup => $deployment_group,
@@ -44,7 +44,7 @@ class xld-tomcat ( $deployment_group)  {
     environments => "Environments/$environment/App-$environment",
   }
 
-  Xldeploy_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
+  xldeploy_container { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
     type         => 'tests2.TestRunner',
     properties   => {
       deploymentGroup => $deployment_group,
@@ -53,7 +53,7 @@ class xld-tomcat ( $deployment_group)  {
     environments => "Environments/$environment/App-$environment",
   }
 
-  Xldeploy_dictionary { "Environments/$environment/$fqdn.dict":
+  xldeploy_dictionary { "Environments/$environment/$fqdn.dict":
     entries                                                 => {
       "log.RootLevel"                                       => "ERROR",
       "log.FilePath"                                        => "/tmp/null",

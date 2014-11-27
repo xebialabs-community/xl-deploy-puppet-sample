@@ -8,11 +8,11 @@ node 'tomcat3' {
   $environment = "Production"
   include xld-base
   include xld-tomcat
-  include xld-app
+  #include xld-app
 }
 
 node 'jbossdev' {
-  $environment = "Dev"
+  $environment = "Development"
   include xld-base
   include xld-jbossas
   include xld-mysql

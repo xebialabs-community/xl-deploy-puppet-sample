@@ -12,7 +12,7 @@ class xld-jbossas {
   include jbossas
 
 
-  Xldeploy_container { "Infrastructure/$environment/$fqdn/$hostname":
+  xldeploy_container { "Infrastructure/$environment/$fqdn/$hostname":
     type         => 'jbossas.ServerV5',
     properties   => {
       home        => hiera('jbossas::home'),
@@ -22,7 +22,7 @@ class xld-jbossas {
     environments => "Environments/$environment/App-$environment",
   }
 
-  Xldeploy_dictionary { "Environments/$environment/App-$environment-$hostname.dict":
+  xldeploy_dictionary { "Environments/$environment/App-$environment-$hostname.dict":
     server                 => Xldeploy["xld-server"],
     environments           => "Environments/$environment/App-$environment",
     entries                => {

@@ -24,14 +24,14 @@ Vagrant::Config.run do |config|
   nodes.each do |node|
     config.vm.define node[:hostname] do |node_config|
 
-      if Vagrant.has_plugin?("vagrant-cachier")
+      if Vagrant.has_plugin?('vagrant-cachier')
         config.cache.scope = :box
       end
 
       node_config.vm.box = node[:box]
       node_config.vm.host_name = node[:hostname] + '.' + domain
       node_config.vm.network :hostonly, node[:ip]
-      node_config.vm.share_folder("catalog", "/catalog", ENV["CATALOG"])
+      node_config.vm.share_folder('catalog', '/catalog', ENV['CATALOG'])
 
       memory = node[:ram] ? node[:ram] : 256;
       node_config.vm "virtualbox" do |v|
@@ -43,14 +43,14 @@ Vagrant::Config.run do |config|
       end
     end
   end
-  #config.vm.provision :shell, path: "bootstrap.sh"
+  #config.vm.provision :shell, path: 'bootstrap.sh'
 
   config.vm.provision :puppet do |puppet|
     puppet.hiera_config_path = 'hiera.yaml'
     puppet.manifests_path = 'puppet/manifests'
     puppet.module_path = 'puppet/modules'
     puppet.manifest_file = 'site.pp'
-    puppet.module_path = ["./puppet/modules"]
+    puppet.module_path = ['./puppet/modules']
 
     #puppet.options = "--verbose --debug --trace"
   end

@@ -15,15 +15,15 @@ class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_pat
     encrypted_dictionary => "Environments/$environment/PuppetModuleDictionary"
   }
 
-  Xldeploy_directory { "Infrastructure/$environment":
+  xldeploy_directory { "Infrastructure/$environment":
     server      => Xldeploy["xld-server"],
   }
 
-  Xldeploy_directory { "Environments/$environment":
+  xldeploy_directory { "Environments/$environment":
     server      => Xldeploy["xld-server"],
   }
 
-  Xldeploy_container { "Infrastructure/$environment/$fqdn":
+  xldeploy_container { "Infrastructure/$environment/$fqdn":
     type        => "overthere.SshHost",
     properties  => {
       os      => UNIX,
