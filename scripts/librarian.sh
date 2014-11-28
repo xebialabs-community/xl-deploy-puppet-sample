@@ -1,24 +1,13 @@
 #!/bin/bash
 
 function do_main() {
-    install_git
     install_ruby_dev
     install_puppet
     install_librarian
     install_jsonpath
-    install_git_ssh_keys
     install_puppet_module
 }
 
-function install_git() {
-    $(which git > /dev/null 2>&1)
-    FOUND_GIT=$?
-    if [ "$FOUND_GIT" -ne '0' ]; then
-        install_package git
-    else
-        echo 'git found'
-    fi
-}
 
 function install_ruby_dev() {
     install_package ruby-dev
@@ -37,9 +26,6 @@ function check_installed {
         yum -q -y install $1
         echo "$1 installed."
     elif [ "${FOUND_APT}" -eq '0' ]; then
-        
-        
-
         apt-get -q -y install $1
         if [ $? -eq 0 ]; then
             echo "$1 installed."
@@ -99,7 +85,8 @@ function install_puppet() {
 
 function install_librarian() {
     if [ "$(gem search -i librarian-puppet)" = "false" ]; then
-        install_gem_package librarian-puppet 1.0.3
+        #install_gem_package librarian-puppet 1.0.3
+        install_gem_package librarian-puppet
     else
         echo 'librarian-puppet found'
     fi
@@ -120,26 +107,13 @@ function install_gem_package {
 
     if [ "${FOUND_GEM}" -eq '0' ]; then
         if [ -z "$2" ]; then
-            gem install $1
+            gem install --no-ri --no-rdoc $1
         else
-            gem install $1 -v $2 
+            gem install --no-ri --no-rdoc $1 -v $2
         fi
         echo "$1 $2 installed."
     else
         failed "No gem package installer available. You may need to install $1 $2 manually."
-    fi
-}
-
-function install_git_ssh_keys() {
-    if [ -e "/librarian-files/id_rsa" ]; then
-        echo 'Installing SSH keys'
-        SSH_DIR="/root/.ssh/"
-        make_dir ${SSH_DIR}
-        cp /librarian-files/id_rsa ${SSH_DIR}
-        cp /librarian-files/known_hosts ${SSH_DIR}
-        chmod og-rwx -R ${SSH_DIR}
-    else
-        echo '!!! No ssh keys found. Continue without them !!!'
     fi
 }
 

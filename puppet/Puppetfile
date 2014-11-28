@@ -1,0 +1,11 @@
+forge "https://forgeapi.puppetlabs.com"
+
+mod "puppetlabs-java"
+mod "puppetlabs-stdlib"
+mod "puppetlabs-mysql"
+
+#the lastest 0.0.8 fails to start the tomcat.... TODO: Investigate
+mod "camptocamp/tomcat","0.7.1"
+
+mod 'puppet-xldeploy','0.0.2',
+   :github_tarball => 'bmoussaud/puppet-xldeploy'
