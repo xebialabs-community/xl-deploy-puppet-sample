@@ -4,27 +4,23 @@
 #
 
 
-class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_path)  {
+class xld-base ( $sudo_username, $staging_directory_path, $xldeploy_url)  {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  xldeploy { "xld-server":
-    username             => $username,
-    password             => $password,
-    url                  => $url,
-    encrypted_dictionary => "Environments/$environment/PuppetModuleDictionary"
+  xldeploy_ci { "Infrastructure/$environment":
+    type        => 'core.Directory',
+    rest_url    => $xldeploy_url
   }
 
-  xldeploy_directory { "Infrastructure/$environment":
-    server      => Xldeploy["xld-server"],
+  xldeploy_ci { "Environments/$environment":
+    type        => 'core.Directory',
+    rest_url    => $xldeploy_url
   }
 
-  xldeploy_directory { "Environments/$environment":
-    server      => Xldeploy["xld-server"],
-  }
-
-  xldeploy_container { "Infrastructure/$environment/$fqdn":
+  xldeploy_ci { "Infrastructure/$environment/$fqdn":
     type        => "overthere.SshHost",
+    rest_url    => $xldeploy_url,
     properties  => {
       os      => UNIX,
       address => $ipaddress_eth1,
@@ -34,7 +30,12 @@ class xld-base ( $url,$username,$password,$sudo_username, $staging_directory_pat
       sudoUsername => $sudo_username,
       stagingDirectoryPath => $staging_directory_path
     },
-    server      => Xldeploy["xld-server"],
+  }
+
+  xldeploy_ci {"Environments/$environment/App-$environment":
+    type       => 'udm.Environment',
+    properties => { },
+    rest_url     => $xldeploy_url
   }
 
 

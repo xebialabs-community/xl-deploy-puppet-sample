@@ -38,3 +38,4 @@ atlassian-ide-plugin.xml
 **/.vagrant*
 .vagrant*
 
+puppet/modules/puppet-xldeploy

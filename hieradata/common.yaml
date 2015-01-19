@@ -3,16 +3,16 @@ apache::serveradmin: 'joe@example.com'
 my_message: 'Hello, World!'
 tomcat::params::version: 7
 
-tomcat.port.ajp: 8009
-tomcat.port.mgt: 8005
+xld-tomcat::tomcat_port_ajp: 8009
+xld-tomcat::tomcat_port_mgt: 8005
 
-xld-base::url: http://10.0.2.2:4516
-xld-base::username: admin
-xld-base::password: admin
+xld-tomcat::xldeploy_url: http://admin:admin@10.0.2.2:4516/deployit
+xld-base::xldeploy_url: http://admin:admin@10.0.2.2:4516/deployit
+xld-mysql::xldeploy_url: http://admin:admin@10.0.2.2:4516/deployit
+
 xld-base::sudo_username: jbossas
 xld-base::deployment_group: 1
 xld-base::staging_directory_path: /tmp/xld-staging
-
 
 config::loglevel: error
 config::logfilepath: /opt/log/application.log

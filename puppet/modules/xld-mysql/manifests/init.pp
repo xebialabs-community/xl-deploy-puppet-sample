@@ -4,7 +4,7 @@
 #
 
 
-class xld-mysql( $dbname,$dbuser,$dbpassword) {
+class xld-mysql( $dbname,$dbuser,$dbpassword, $xldeploy_url) {
 
   class { '::mysql::server':
     root_password    => 'deployitpassword',
@@ -19,28 +19,36 @@ class xld-mysql( $dbname,$dbuser,$dbpassword) {
     grant    => ['all'],
   }
 
-  xldeploy_container { "Infrastructure/$environment/$fqdn/mysql-$dbname":
+  xldeploy_ci { "Infrastructure/$environment/$fqdn/mysql-$dbname":
     type         => 'sql.MySqlClient',
     properties   => {
-      username        => $dbuser,
-      password        => $dbpassword,
-      databaseName    => $dbname,
+      username        => "$dbuser",
+      password        => "$dbpassword",
+      databaseName    => "$dbname",
       mySqlHome       => '/usr',
-      deploymentGroup => 1,
+      deploymentGroup => "1",
     },
-    server       => Xldeploy["xld-server"],
-    environments => "Environments/$environment/App-$environment",
+    rest_url  => $xldeploy_url,
   }
 
-  xldeploy_dictionary { "Environments/$environment/App-db-$environment":
-    server               => Xldeploy["xld-server"],
-    environments         => "Environments/$environment/App-$environment",
-    entries              => {
-      'db.username'      => $dbuser,
-      'db.password'      => $dbpassword,
-      'db.name'          => $dbname,
-      'db.host'          => $ipaddress_eth1,
-      'db.url'           => "jdbc:mysql://{{db.host}}:3306/{{db.name}}",
-    },
+  xldeploy_ci { "Environments/$environment/App-db-$environment":
+    rest_url   => $xldeploy_url,
+    type       => 'udm.Dictionary',
+    properties => {
+      entries              => {
+        'db.username'      => "$dbuser",
+        'db.password'      => "$dbpassword",
+        'db.name'          => "$dbname",
+        'db.host'          => "$ipaddress_eth1",
+        'db.url'           => "jdbc:mysql://{{db.host}}:3306/{{db.name}}",
+        }},
   }
+
+  xldeploy_environment_member { "Manage MySQL members of Environments/$environment/App-$environment":
+    env          => "Environments/$environment/App-$environment",
+    members      => ["Infrastructure/$environment/$fqdn/mysql-$dbname"],
+    dictionaries => ["Environments/$environment/App-db-$environment"],
+    rest_url     => $xldeploy_url,
+  }
+
 }
