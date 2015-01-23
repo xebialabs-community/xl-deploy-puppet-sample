@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
   end
   #config.vm.provision :shell, path: 'bootstrap.sh'
 
-  #config.vm.provision :shell, :path => "scripts/librarian.sh"
+  config.vm.provision :shell, :path => "scripts/librarian.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.hiera_config_path = 'hiera.yaml'

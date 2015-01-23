@@ -6,4 +6,4 @@ mod "puppetlabs-mysql"
 
 #the lastest 0.0.8 fails to start the tomcat.... TODO: Investigate
 mod "camptocamp/tomcat","0.7.1"
-#mod "xebialabs-xldeploy"
+mod "xebialabs-xldeploy","1.2.3"
