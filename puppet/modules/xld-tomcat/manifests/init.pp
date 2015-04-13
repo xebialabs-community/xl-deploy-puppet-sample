@@ -8,6 +8,8 @@ class xld-tomcat ( $tomcat_port_http, $tomcat_port_mgt, $tomcat_port_ajp, $deplo
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
+  include java
+
   class { 'tomcat':
     version     => '7',
     sources     => true,
@@ -43,7 +45,7 @@ class xld-tomcat ( $tomcat_port_http, $tomcat_port_mgt, $tomcat_port_ajp, $deplo
   }
 
   xldeploy_ci { "Infrastructure/$environment/$fqdn/test-runner-$hostname":
-    type         => 'tests2.TestRunner',
+    type         => 'smoketest.Runner',
     properties   => {
       deploymentGroup => "$deployment_group",
     },

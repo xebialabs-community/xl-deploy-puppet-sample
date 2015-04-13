@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function do_main() {
+    apt-get update
     install_ruby_dev
     install_puppet
     install_librarian
