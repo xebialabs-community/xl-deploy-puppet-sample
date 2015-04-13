@@ -18,7 +18,6 @@ Vagrant.configure("2") do |config|
       node_config.vm.box = node[:box]
       node_config.vm.host_name = node[:hostname] + '.' + domain
       node_config.vm.network :private_network, ip: node[:ip]
-      node_config.vm.synced_folder ENV["CATALOG"], "/catalog", mount_options: ['dmode=777','fmode=666' ]
 
       memory = node[:ram] ? node[:ram] : 256;
       node_config.vm "virtualbox" do |v|
@@ -30,9 +29,8 @@ Vagrant.configure("2") do |config|
       end
     end
   end
-  #config.vm.provision :shell, path: 'bootstrap.sh'
 
-  #config.vm.provision :shell, :path => "scripts/librarian.sh"
+  config.vm.provision :shell, :path => "scripts/librarian.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.hiera_config_path = 'hiera.yaml'

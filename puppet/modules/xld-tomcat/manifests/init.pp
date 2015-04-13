@@ -13,7 +13,7 @@ class xld-tomcat ( $tomcat_port_http, $tomcat_port_mgt, $tomcat_port_ajp, $deplo
   class { 'tomcat':
     version     => '7',
     sources     => true,
-    sources_src => 'file:/catalog/Tomcat'
+    sources_src => 'file:/vagrant/tomcat'
   }
 
   tomcat::instance { 'appserver':
