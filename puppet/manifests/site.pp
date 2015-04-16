@@ -5,13 +5,6 @@ node 'tomcat1','tomcat2' {
   include xld-tomcat
 }
 
-node 'tomcat3' {
-  $environment = "PuppetDemo"
-  include java
-  include xld-base
-  include xld-tomcat
-  #include xld-app
-}
 
 node 'dbprod' {
   $environment = "PuppetDemo"
@@ -19,4 +12,11 @@ node 'dbprod' {
   include xld-mysql
 }
 
+node 'tomcat3' {
+  $environment = "PuppetDemo"
+  include java
+  include xld-base
+  include xld-tomcat
+#include xld-app
+}
 
