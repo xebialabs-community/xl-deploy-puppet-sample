@@ -49,6 +49,7 @@ class xld-mysql( $dbname,$dbuser,$dbpassword, $xldeploy_url) {
     members      => ["Infrastructure/$environment/$fqdn/mysql-$dbname"],
     dictionaries => ["Environments/$environment/App-db-$environment"],
     rest_url     => $xldeploy_url,
+    require      => Xldeploy_ci["Environments/$environment/App-db-$environment"],
   }
 
 }

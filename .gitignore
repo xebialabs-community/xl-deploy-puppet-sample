@@ -39,3 +39,9 @@ atlassian-ide-plugin.xml
 .vagrant*
 
 puppet/modules/puppet-xldeploy
+puppet/modules/java
+puppet/modules/stdlib
+puppet/modules/mysql
+puppet/modules/tomcat
+puppet/modules/xldeploy
+

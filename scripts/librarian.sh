@@ -2,13 +2,12 @@
 
 function do_main() {
     apt-get update
-    install_ruby_dev
+    #install_ruby_dev
     install_puppet
     install_librarian
     install_jsonpath
     install_puppet_module
 }
-
 
 function install_ruby_dev() {
     install_package ruby-dev
@@ -77,20 +76,11 @@ function is_installed_apt {
 }
 
 function install_puppet() {
-    if [ "$(gem search -i puppet)" = "false" ]; then
-        install_gem_package puppet
-    else
-        echo 'puppet found'
-    fi
+    install_package puppet
 }
 
 function install_librarian() {
-    if [ "$(gem search -i librarian-puppet)" = "false" ]; then
-        #install_gem_package librarian-puppet 1.0.3
-        install_gem_package librarian-puppet
-    else
-        echo 'librarian-puppet found'
-    fi
+    install_package librarian-puppet
 }
 
 function install_jsonpath() {
@@ -143,6 +133,7 @@ function librarian_clean_install() {
         return ${result}
     fi
     echo "All puppet modules installed successfully"
+    librarian-puppet show
 }
 
 function retry_librarian_clean_install () {

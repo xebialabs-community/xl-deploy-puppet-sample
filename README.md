@@ -1,6 +1,8 @@
 xldeploy-puppet-sample
 ======================
 
+Tested using Vagrant 1.9.3, Puppet v3.8.5
+
 This project shows how to integrate [XL Deploy](https://xebialabs.com/products/xl-deploy/) and [Puppet](https://puppetlabs.com/) using [Vagrant](https://www.vagrantup.com/) images.
 It integrates the [xl-deploy  Puppet Module](https://forge.puppetlabs.com/xebialabs/xldeploy) to declare automaticaly in the XL Deploy repository all the middleware managed by Puppet
 
@@ -48,3 +50,5 @@ Once created, look at the XL Deploy Repository and go to
 * `Environments/PuppetDemo`: it includes the configured environment and dictionary.
 
 
+puppet apply --modulepath=/etc/puppet/modules/ --modulepath=/vagrant/my_modules /vagrant/puppet/site.pp  --verbose --debug
+puppet apply --modulepath=/etc/puppet/modules:/vagrant/my_modules --hiera_config=/vagrant/hiera.yaml /vagrant/puppet/site.pp  --verbose --debug
