@@ -50,5 +50,3 @@ Once created, look at the XL Deploy Repository and go to
 * `Environments/PuppetDemo`: it includes the configured environment and dictionary.
 
 
-puppet apply --modulepath=/etc/puppet/modules/ --modulepath=/vagrant/my_modules /vagrant/puppet/site.pp  --verbose --debug
-puppet apply --modulepath=/etc/puppet/modules:/vagrant/my_modules --hiera_config=/vagrant/hiera.yaml /vagrant/puppet/site.pp  --verbose --debug
